@@ -1,17 +1,19 @@
 #include <stdio.h>
 #include <locale.h>
 
-
-// Definindo o tamanho do tabuleiro
+// Definindo o tamanho do tabuleiro e o tamanho do navio
 #define TAM 10
+#define NAVIO 3
 
 // Função para posicionar um navio no tabuleiro
-void posicionarNavio(int tabuleiro[TAM][TAM], int tamanho, int linha, int coluna, char orientacao) {
-    for (int i = 0; i < tamanho; i++) {
+void posicionarNavio(int tabuleiro[TAM][TAM], int linha, int coluna, char orientacao) {
+    for (int i = 0; i < NAVIO; i++) {
         if (orientacao == 'H') { // Horizontal
-            tabuleiro[linha][coluna + i] = 3;
+            tabuleiro[linha][coluna + i] = NAVIO;
         } else if (orientacao == 'V') { // Vertical
-            tabuleiro[linha + i][coluna] = 3;
+            tabuleiro[linha + i][coluna] = NAVIO;
+        }else if (orientacao == 'D') { // Diagonal
+            tabuleiro[linha + i][coluna + i] = NAVIO;
         }
     }
 }
@@ -21,10 +23,13 @@ int main() {
 
     int tabuleiro[TAM][TAM] = {0}; // Tabuleiro inicializado com zeros
     char letra[TAM] = {'A','B','C','D','E','F','G','H','I','J'};
-    char *numero[TAM] = {"1","2","3","4","5","6","7","8","9","10"};
+    char *numero[TAM] = {"0","1","2","3","4","5","6","7","8","9"};
 
-    // Posicionar navio de tamanho 3 na linha 6, coluna 7, vertical
-    posicionarNavio(tabuleiro, 3, 3, 6, 'V');
+    // Chama a função para posicionar os navios no tabuleiro H = horizontal, V = vertical e D = diagonal
+    posicionarNavio(tabuleiro, 0, 9, 'V');
+    posicionarNavio(tabuleiro, 3, 0, 'D');
+    posicionarNavio(tabuleiro, 0, 1, 'D');
+    posicionarNavio(tabuleiro, 5, 4, 'H');
 
     // Exibindo o tabuleiro
     printf("Tabuleiro de Batalha Naval:\n");
